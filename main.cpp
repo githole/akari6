@@ -2,6 +2,6 @@
 
 int main()
 {
-    std::cout << "HOGE";
+    std::cout << "test";
     return 0;
 }
