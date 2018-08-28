@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.27703.2000
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "rt6", "rt6.vcxproj", "{9B17EBC7-3C0D-46D5-8B53-09E47DD9CF84}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "smoker", "smoker\smoker.vcxproj", "{B14E0D5D-2C29-4692-A971-E2103A04F91C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -21,6 +23,14 @@ Global
 		{9B17EBC7-3C0D-46D5-8B53-09E47DD9CF84}.Release|x64.Build.0 = Release|x64
 		{9B17EBC7-3C0D-46D5-8B53-09E47DD9CF84}.Release|x86.ActiveCfg = Release|Win32
 		{9B17EBC7-3C0D-46D5-8B53-09E47DD9CF84}.Release|x86.Build.0 = Release|Win32
+		{B14E0D5D-2C29-4692-A971-E2103A04F91C}.Debug|x64.ActiveCfg = Debug|x64
+		{B14E0D5D-2C29-4692-A971-E2103A04F91C}.Debug|x64.Build.0 = Debug|x64
+		{B14E0D5D-2C29-4692-A971-E2103A04F91C}.Debug|x86.ActiveCfg = Debug|Win32
+		{B14E0D5D-2C29-4692-A971-E2103A04F91C}.Debug|x86.Build.0 = Debug|Win32
+		{B14E0D5D-2C29-4692-A971-E2103A04F91C}.Release|x64.ActiveCfg = Release|x64
+		{B14E0D5D-2C29-4692-A971-E2103A04F91C}.Release|x64.Build.0 = Release|x64
+		{B14E0D5D-2C29-4692-A971-E2103A04F91C}.Release|x86.ActiveCfg = Release|Win32
+		{B14E0D5D-2C29-4692-A971-E2103A04F91C}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
