@@ -178,6 +178,22 @@ namespace hmath
         return true;
     }
 
+    template<typename Real>
+    Real lerp(Real a, Real b, Real x)
+    {
+        return (b - a) * x + a;
+    }
+
+    template<typename Real>
+    Vec3<Real> lerp(Vec3<Real> a, Vec3<Real> b, Real x)
+    {
+        Vec3<Real> tmp(lerp(a[0], b[0], x), lerp(a[1], b[1], x), lerp(a[2], b[2], x));
+        return tmp;
+    }
+
+
+
+
     // Y-up
     template<typename T>
     Vec3<T> polarCoordinateToDirection(T theta, T phi, const Vec3<T>& normal, const Vec3<T>& tangent, const Vec3<T>& binormal)

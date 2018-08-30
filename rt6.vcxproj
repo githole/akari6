@@ -123,6 +123,7 @@
     <ClCompile Include="XYZ.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="bbox.h" />
     <ClInclude Include="etc.h" />
     <ClInclude Include="hdr.h" />
     <ClInclude Include="test.h" />
