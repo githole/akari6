@@ -362,7 +362,7 @@ namespace volume
     constexpr float MieScale = 1;
     constexpr float scattering_Mie_base = 2.5f; /* [1/m] */
     constexpr float H_Mie = 10; /* [m] */
-    constexpr float Albedo = 0.999f;
+    constexpr float Albedo = 0.75f; // 0.999f;
 
 
     struct HeightExpTable
@@ -471,8 +471,8 @@ namespace volume
             }
 
             // もし、childのmajorantの差が一定の幅以下なら、まとめてしまう
-            //if ((max_majorant - min_majorant) < 1.0f) {
-            if (depth >= 2) {
+            if ((max_majorant - min_majorant) < 0.1f) {
+            //if (depth >= 4) {
                 current->leaf = true;
                 for (int iz = 0; iz < 2; ++iz) {
                     for (int iy = 0; iy < 2; ++iy) {
@@ -498,6 +498,8 @@ namespace volume
 
         VolumeTable()
         {
+            hmath::Rng rng;
+
             for (int iz = 0; iz < NZ; ++iz) {
                 for (int iy = 0; iy < NY; ++iy) {
                     for (int ix = 0; ix < NX; ++ix) {
@@ -505,26 +507,49 @@ namespace volume
 
                         float scale = 1;
 
-                        scale = 0.01f;
                         const float h = p[1];
                         constexpr float solid = 1.0f;
+                        constexpr float void_space = 0.01f;
+                        scale = void_space;
 
-                        if (abs(p[0]) < 3.0f && abs(p[1]) < 2.0f && p[1] > 1.0f)
+                        // 下
+                        if (abs(p[0]) < 3.0f && abs(p[1]) < 2.0f && p[1] > 1.0f) {
                             scale = solid;
+                        }
+
+                        // 右
                         auto k = p - hmath::Float3(-8, 8, -8);
                         if (abs(k[2]) < 3.0f && abs(k[1]) < 5.0f)
                             scale = solid;
 
-                        if (abs(k[2]) < 3.0f && abs(k[1]) < 1.0f)
-                            scale = 0.01f;
+                        if (abs(k[2]) < 3.0f && abs(k[1]) < 1.0f) {
+                            scale = void_space;
+                        }
 
+                        // 右縦
+                        k = p - hmath::Float3(10, 0, -8);
+                        if (abs(k[0]) < 2.0f && abs(k[2]) < 3.0f) {
+                            scale = solid * 5.0f;
+
+                            if (rng.next01() < 0.7f)
+                                scale = void_space;
+                        }
+
+                        if (abs(k[1]) < 1.0f) {
+                            scale = void_space;
+                        }
+
+                        // 上
                         k = p - hmath::Float3(0, 9, 0);
-                        if (abs(k[0]) < 4.0f && abs(k[1]) < 3.0f && k[1] > 1.0f)
+                        if (abs(k[0]) < 4.0f && abs(k[1]) < 3.0f && k[1] > 1.0f) {
                             scale = solid;
+                        }
 
+                        // 縦
                         k = p - hmath::Float3(-1, 0, 8);
-                        if (abs(k[0]) < 2.0f && abs(k[2]) < 2.0f)
+                        if (abs(k[0]) < 2.0f && abs(k[2]) < 2.0f) {
                             scale = solid;
+                        }
 
                         const auto extinction_coeff = scale * MieScale * scattering_Mie_base * exp(-h / H_Mie);
 
@@ -855,7 +880,7 @@ namespace integrator
     constexpr float DefaultMinWavelength = 380.0f;
     constexpr float DefaultMaxWavelength = 750.0f;
     constexpr int PlaneSection = 16;
-    constexpr float DefaultG = 0.5f;
+    constexpr float DefaultG = 0.25f;
 
 
     struct PlaneTable
@@ -1424,7 +1449,7 @@ int main(int argc, char** argv)
             }
 
             // 123秒経過を計る
-            if (std::chrono::duration_cast<std::chrono::milliseconds>(current - start).count() >= 123 * 1000) {
+            if (std::chrono::duration_cast<std::chrono::milliseconds>(current - start).count() >= /*122*/ 1800 * 1000 /* 安全をみてちょっと早めにする */) {
                 // 画像出力して全部終了じゃい
                 end_flag = true;
                 save_image("final_image.png", image, true);
