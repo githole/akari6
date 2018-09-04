@@ -1,2 +1,2 @@
-# rt6
-Renderer for Raytracing Camp 6
+# akari6
+Raytracing Renderer for Raytracing Camp 6
